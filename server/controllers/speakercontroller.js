@@ -32,15 +32,15 @@ module.exports.speakerlogin=async (req,res,next)=>{
         const {email,password}=req.body
     const mail=await Speaker.findOne({email})
     if(!mail)
-    return res.json({msg:"this email is not registered  note: username and email  are case sensitive",status:false})
+    return res.json({msg:"this email is not registered  note: email  is case sensitive",status:false})
 
-    const ispassswordvalid=await bcrypt.compare(password,user.password)
-    const isPasswordValidWithEmail = await bcrypt.compare(password, user.password);
+    const ispassswordvalid=await bcrypt.compare(password,mail.password)
+    const isPasswordValidWithEmail = await bcrypt.compare(password, mail.password);
     if(!isPasswordValidWithEmail )
     return res.json({msg:"Wrong Password",status:false})
-    delete user.password
+    delete mail.password
     
-    return res.json({status:true,user})
+    return res.json({status:true,mail})
     }
     catch(ex){
     next(ex)

@@ -18,6 +18,7 @@ const Navbar = () => {
     const [color, setColor] = useState('transparent');
     const [textColor, setTextColor] = useState('white');
     const [shadow, setShadow] = useState('')
+    const [creator, setcreator] = useState(null);
 
     const handleNav = () => {
         setNav(!nav);
@@ -37,6 +38,26 @@ const Navbar = () => {
         };
         window.addEventListener('scroll', changeColor);
     }, []);
+
+
+    useEffect(() => {
+        async function setuserfunc() {
+          if (!localStorage.getItem("chat-nexus-user")) {
+          } else {
+            setcreator(await JSON.parse(localStorage.getItem("chat-nexus-user")));
+          }
+        }
+        setuserfunc();
+      }, []);
+
+
+      const handleSignOut = (e) => {
+        e.preventDefault();
+        localStorage.removeItem("chat-nexus-user");
+        setcreator(null);
+        window.location.href = "/";
+      }
+      
 
     return (
         <div
@@ -74,7 +95,7 @@ const Navbar = () => {
                         showSearchModal && <Modal showSearchModal={showSearchModal} setShowSearchModal={setShowSearchModal} />
                     }
                     {
-                        user ?
+                        creator ?
                             <Menu as="div" className="relative inline-block text-left">
                                 <div>
                                     <Menu.Button className="rounded-full p-2">
@@ -139,6 +160,7 @@ const Navbar = () => {
                                                     {({ active }) => (
                                                         <button
                                                             type="submit"
+                                                            onClick={handleSignOut}
                                                             className={classNames(
                                                                 active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
                                                                 'block w-full px-4 py-2 text-left text-sm'

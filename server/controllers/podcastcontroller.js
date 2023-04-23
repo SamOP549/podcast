@@ -2,9 +2,9 @@ const Podcast = require('../models/podcastmodel');
 
 module.exports.createpodcast = async (req, res, next) => {
     try {
-      const { title, description, category, type,file} = req.body;
+      const { title, description, category, type,file,creator} = req.body;
   
-      if (!title || !description || !category || !type || !file) {
+      if (!title || !description || !category || !type || !file || !creator) {
         return res.status(400).json({ error: 'Please fill all the required fields.' });
       }
   
@@ -13,7 +13,8 @@ module.exports.createpodcast = async (req, res, next) => {
         description,
         category,
         type,
-        file
+        file,
+        creator
       });
   
       return res.status(201).json({ message: 'Podcast created successfully.' });

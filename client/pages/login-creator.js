@@ -3,13 +3,101 @@ import Image from 'next/image'
 import Link from 'next/link'
 import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
+import { speakerloginroute } from './api/apiroutes'
+import { Toaster, toast } from 'react-hot-toast'
+import axios from 'axios'
 
 
 const Login = () => {
     const router = useRouter()
-    const [emailOrNumber, setEmailOrNumber] = useState()
-    const [password, setPassword] = useState()
-    return (
+    const [inputType, setInputType] = useState('password');
+    const[values,setvalues]=useState({
+      password:"",
+      email:"",
+    })
+    const [loginloading, setloginLoading] = useState(false); 
+
+
+
+
+  
+      const handlechange=(e)=>{
+       setvalues({...values,[e.target.name]:e.target.value})
+      }
+  
+      const handlesubmit = async (e) => {
+        e.preventDefault();
+        if (handlevalidation()) {
+          setloginLoading(true)
+            toast.loading('logging in please wait',{duration:4000})
+          const { email, password } = values;
+          try {
+            const { email, password } = values;
+        const { data } = await axios.post(speakerloginroute, {
+            email,
+            password,
+          });
+            
+            if (data.status === false) {
+              toast.error(data.msg);
+              setloginLoading(false)
+            }
+            if (data.status === true) {
+              localStorage.setItem('chat-nexus-user', JSON.stringify(data.mail));
+              toast.success('User logged in successfully!');
+              window.location.href = '/creator/dashboard';
+            }
+          } catch (error) {
+            toast.error('An error occurred. Please try again later.');
+          } finally {
+            setloginLoading(false)
+          }
+        }
+      
+      };
+
+
+    
+      
+
+  
+    
+  
+
+
+      const handleTypeChange = (e) => {
+        e.preventDefault()
+        if (inputType === 'text') {
+          setInputType('password');
+        } else {
+          setInputType('text');
+        }
+      }
+
+
+  
+      
+  
+      const handlevalidation=()=>{
+        const{email,password}=values
+        if(email.length===0){
+          toast.error(" email must not be empty")
+          setloginLoading(false)
+          return false;
+         }
+        else if(password.length===0){
+         toast.error(" password must not be empty")
+         setloginLoading(false)
+         return false;
+        }
+      return true
+    }
+
+
+
+
+    return (<>
+    <Toaster/>
         <div className="bg-[#0A0B0D] text-white">
             <div className="flex justify-center h-screen">
                 <div className="hidden bg-cover lg:block lg:w-2/3" style={{ backgroundImage: "url(https://images.unsplash.com/photo-1616763355603-9755a640a287?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1470&q=80)" }}>
@@ -37,10 +125,10 @@ const Login = () => {
                         </div>
 
                         <div className="mt-8">
-                            <form>
+                            <form onSubmit={(e)=>handlesubmit(e)}>
                                 <div>
-                                    <label htmlFor="emailOrNumber" className="block mb-2 text-sm">Email Address or Number</label>
-                                    <input value={emailOrNumber} onChange={(e) => setEmailOrNumber(e.target.value)} type="text" name="emailOrNumber" id="emailOrNumber" placeholder="Email or Number" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <label htmlFor="email" className="block mb-2 text-sm">Email Address or Number</label>
+                                    <input onChange={(e)=> handlechange(e)} type="text" name="email" id="email" placeholder="Email" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
 
                                 <div className="mt-6">
@@ -49,11 +137,11 @@ const Login = () => {
                                         <Link href='/forgot'><div className="text-sm text-blue-500 hover:underline">Forgot password?</div></Link>
                                     </div>
 
-                                    <input value={password} onChange={(e) => setPassword(e.target.value)} type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
+                                    <input  onChange={(e)=> handlechange(e)} type="password" name="password" id="password" placeholder="Your Password" className="block w-full px-4 py-2 mt-2 text-gray-700 placeholder-gray-400 bg-white border border-gray-200 rounded-md focus:border-blue-400 focus:ring-blue-400 focus:outline-none focus:ring focus:ring-opacity-40" />
                                 </div>
 
                                 <div className="mt-6">
-                                    <button className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
+                                    <button  type='submit' className="w-full px-6 py-3 text-sm font-medium tracking-wide text-white capitalize transition-colors duration-300 transform bg-sky-700 rounded-md hover:bg-sky-600 focus:outline-none focus:ring focus:ring-blue-300 focus:ring-opacity-50">
                                         Sign in
                                     </button>
 
@@ -76,6 +164,7 @@ const Login = () => {
                 </div>
             </div>
         </div>
+        </>
     )
 }
 

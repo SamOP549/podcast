@@ -22,6 +22,11 @@ const podcastSchema = new mongoose.Schema({
     type: String,
     required: true
   },
+  creator: {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'User',
+    required: true
+  },
   ratings: [{
     rating: {
       type: Number,
@@ -39,6 +44,7 @@ const podcastSchema = new mongoose.Schema({
 });
 
 module.exports = mongoose.model('Podcast', podcastSchema);
+
 
 
 
