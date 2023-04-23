@@ -12,19 +12,19 @@ mongoose.connection.on('connected', () => {
 
 module.exports.usersignup=async (req,res,next)=>{
     try{
-        const {username,email,password,photo}=req.body
-    const usernamecheck=await User.findOne({username})
-    if(usernamecheck)
-    return res.json({msg:"username already used",status:false})
+        const {email,password,firstname,lastname,gender,birthday,phonenumber}=req.body
     const emailcheck=await User.findOne({email})
     if(emailcheck)
     return res.json({msg:"Entered Email is already registered",status:false})
     const hashedpassword=await bcrypt.hash(password,10)
     const user=await User.create({
         email,
-        username,
         password:hashedpassword,
-        photo,
+        firstname,
+        lastname,
+        gender,
+        birthday,
+        phonenumber
     })
     delete user.password
     return res.json({status:true,user})

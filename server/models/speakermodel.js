@@ -13,25 +13,24 @@ const speakerSchema = new mongoose.Schema({
     type: String,
     required: true
   },
-  profileImage: {
+  photo: {
+    type: String,
+    required: true
+  },
+  speakerdescription: {
     type: String,
     required: true
   },
   podcasts: [{
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Podcast',
-    required: true
   }],
   speakerRatings: {
     type: Number,
     default: 0
   },
-  speakerDescription: {
-    type: String,
-    required: true
-  },
   numberOfRatings: {
-    type: Number,
+    type: Number, 
     default: 0
   }
 });

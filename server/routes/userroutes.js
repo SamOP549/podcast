@@ -3,7 +3,7 @@ const {usersignup, userlogin, deleteuser} =require("../controllers/usercontrolle
 
 const router=require("express").Router()
 
-router.post("/signup",usersignup)
-router.post("/login",userlogin)
+router.post("/usersignup",usersignup)
+router.post("/userlogin",userlogin)
 router.delete('/:username', deleteuser)
 module.exports=router
