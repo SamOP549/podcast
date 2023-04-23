@@ -33,4 +33,35 @@ label {
     padding: 10px 20px;
     cursor: pointer;
   }
+
+  .podcastcard {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 0 6px rgba(0, 0, 0, 0.1);
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+  
+  .podcastcard h2 {
+    font-size: 24px;
+    margin: 0;
+  }
+  
+  .podcastcard p {
+    font-size: 16px;
+    margin: 8px 0;
+  }
+  
+  .podcastcard a {
+    color: #0077cc;
+    text-decoration: none;
+  }
+  
+  .podcastcard a:hover {
+    text-decoration: underline;
+  }
+  
   
