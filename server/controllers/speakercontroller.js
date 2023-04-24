@@ -48,17 +48,12 @@ module.exports.speakerlogin=async (req,res,next)=>{
 }
 
 
-module.exports.getallspeakers=async (req,res,next)=>{
-    try{
-        const users=await User.find({_id:{$ne:req.params.id}}).select([
-            "email",
-            "username",
-            "id",
-            "photo",
-            "createdAt"
-        ])
-        return res.json(users)
-    }catch(ex){
-        next(ex)
-    }
-}
+
+module.exports.getallspeakers = async (req, res, next) => {
+  try {
+    const speakers = await Speaker.find()
+    return res.json(speakers);
+  } catch (ex) {
+    next(ex);
+  }
+};

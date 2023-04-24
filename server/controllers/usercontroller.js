@@ -36,30 +36,18 @@ module.exports.usersignup=async (req,res,next)=>{
 
 module.exports.userlogin=async (req,res,next)=>{
     try{
-        const {username,email,password}=req.body
-
-    const user=await User.findOne({$or: [{ email }, { username }]})
-    if(!user)
-    return res.json({msg:"This username is not registered!    note: username and email  are case sensitive",status:false})
-
+        const {email,password}=req.body
     const mail=await User.findOne({email})
     if(!mail)
-    return res.json({msg:"this email is not registered  note: username and email  are case sensitive",status:false})
+    return res.json({msg:"this email is not registered  note: email  is case sensitive",status:false})
 
-    const ispassswordvalid=await bcrypt.compare(password,user.password)
-    const isPasswordValidWithEmail = await bcrypt.compare(password, user.password);
-    const isPasswordValidWithUsername = await bcrypt.compare(password, mail.password);
-
-    if(!isPasswordValidWithEmail && isPasswordValidWithUsername){
-    return res.json({msg:"Username is not registered with this email",status:false})
-    }
-    if(isPasswordValidWithEmail && !isPasswordValidWithUsername)
-    return res.json({msg:"Email is not registered with this username",status:false})
-    if(!isPasswordValidWithEmail && !isPasswordValidWithUsername)
+    const ispassswordvalid=await bcrypt.compare(password,mail.password)
+    const isPasswordValidWithEmail = await bcrypt.compare(password, mail.password);
+    if(!isPasswordValidWithEmail )
     return res.json({msg:"Wrong Password",status:false})
-    delete user.password
+    delete mail.password
     
-    return res.json({status:true,user})
+    return res.json({status:true,mail})
     }
     catch(ex){
     next(ex)

@@ -5,5 +5,5 @@ const router=require("express").Router()
 
 router.post("/usersignup",usersignup)
 router.post("/userlogin",userlogin)
-router.delete('/:username', deleteuser)
+/*router.delete('/:username', deleteuser)*/
 module.exports=router

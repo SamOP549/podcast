@@ -20,7 +20,7 @@ app.use(express.json());
  
 app.use("/api/userauth",Userroutes)      
 app.use("/api/speakerauth",Speakerroutes) 
-app.use("/api/podcasts",Podcastroutes)   
+app.use("/api/podcasts",Podcastroutes)    
 
     
   

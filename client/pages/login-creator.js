@@ -5,7 +5,8 @@ import { useState, useEffect } from 'react'
 import { useRouter } from 'next/router'
 import { speakerloginroute } from './api/apiroutes'
 import { Toaster, toast } from 'react-hot-toast'
-import axios from 'axios'
+import axios from 'axios';
+import podcastcreator from '../public/podcastcreator.png'
 
 
 const Login = () => {
@@ -117,8 +118,8 @@ const Login = () => {
                 <div className="flex items-center w-full max-w-md px-6 mx-auto lg:w-2/6">
                     <div className="flex-1">
                         <div className="text-center">
-                            {/* <Image src={brandLogo} alt='logo' height={109} width={150} /> */}
-                            logo
+{/*<Image src={podcastcreator} alt='logo' height={209} width={250} />*/}
+logo
                             <p className="text-2xl text-center">
                                 Creator Login<span className='text-sky-500'>!</span>
                             </p>
