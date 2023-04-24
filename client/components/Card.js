@@ -3,7 +3,7 @@ import Link from 'next/link'
 
 
 
-const Card = ({ image, title,speaker }) => {
+const Card = ({ image, title, speaker }) => {
     return (
         <Link href='/podcast/the-late-show'>
             <div className='flex group flex-col shadow-xl pop'>

@@ -1,29 +1,35 @@
 import { Carousel } from '@mantine/carousel';
-import { useRef } from 'react';
+import { useRef, useState } from 'react';
 import Autoplay from 'embla-carousel-autoplay';
 import Image from 'next/legacy/image';
 import { createStyles } from '@mantine/core';
-import cover from '../../../public/cover.jpg'
+import c1 from '../../../public/CarouselCovers/1.jpg'
+import c2 from '../../../public/CarouselCovers/2.jpg'
+import c3 from '../../../public/CarouselCovers/3.jpg'
 import Link from 'next/link';
 
-function Demo() {
+function Demo(props) {
+
     const autoplay = useRef(Autoplay({ delay: 6000 }));
     const slides = [
         {
-            image: cover,
-            title: "Core Banking Solutions",
-            desc: "We have been providing Software Implementation, Customization, Integration with Third Party apps, Report creation, Migration and Support for financial institutions all around the world.",
+            image: c1,
+            title: "Dirty John",
+            type: "audio",
+            src: "http://thepodcastexchange.ca/s/Porsche-Macan-July-5-2018-1.mp3"
         },
         {
-            image: cover,
-            title: "Experienced Team",
-            desc: "We are a group of skilled software developers working to provide exceptional and effective tools for your business and daily life.",
+            image: c2,
+            title: "The Allusionist",
+            type: "audio",
+            src: "http://thepodcastexchange.ca/s/HSBC_Canada_Announcer_7819_updated.mp3"
         },
         {
-            image: cover,
-            title: "Software Solutions",
-            desc: "Our company's software solutions have won numerous accolades for their creative features and usability.",
-        }
+            image: c3,
+            title: "Conan O’Brien Needs a Friend",
+            type: "audio",
+            src: "http://thepodcastexchange.ca/s/Allusionist-HSBC-PRE-2019-07-12.mp3"
+        },
     ];
     return (
         <Carousel
@@ -60,9 +66,9 @@ function Demo() {
                             <div className="flex justify-center items-center h-full md:w-[70vw] w-[90vw]">
                                 <div className="text-white md:px-36 px-12 text-left">
                                     <h2 className="font-semibold md:text-3xl text-xl mb-4">Latest Podcast<span className='text-sky-500'>.</span></h2>
-                                    <h4 className="font-bold md:text-5xl text-3xl mb-6">The crazy resident podcast</h4>
+                                    <h4 className="font-bold md:text-5xl text-3xl mb-6">{slide.title}</h4>
                                     <div className='flex items-center space-x-4'>
-                                        <button className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-2 rounded-full shadow-2xl">
+                                        <button onClick={() => props.startAudio(slide)} className="bg-gradient-to-r from-indigo-500 via-purple-500 to-pink-500 p-2 rounded-full shadow-2xl hover:scale-110">
                                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-8 h-8">
                                                 <path strokeLinecap="round" strokeLinejoin="round" d="M5.25 5.653c0-.856.917-1.398 1.667-.986l11.54 6.348a1.125 1.125 0 010 1.971l-11.54 6.347a1.125 1.125 0 01-1.667-.985V5.653z" />
                                             </svg>

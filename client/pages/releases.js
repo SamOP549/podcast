@@ -6,7 +6,7 @@ import Image from 'next/legacy/image'
 const Releases = () => {
     return (
         <div className='bg-[#0A0B0D] text-white'>
-            <Screens screen={2} title="Releases" bg="/cover.jpg" />
+            <Screens screen={2} title="Releases" bg="/releases.jpg" />
             <div className="md:py-20 lg:px-20 py-12 md:px-12 px-8 h-fit">
                 <div className="flex justify-between items-center">
                     <h1 className='text-left font-bold lg:text-4xl md:text-3xl text-2xl'>New Releases<span className="text-sky-500">.</span></h1>

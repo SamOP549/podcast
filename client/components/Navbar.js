@@ -42,22 +42,22 @@ const Navbar = () => {
 
     useEffect(() => {
         async function setuserfunc() {
-          if (!localStorage.getItem("chat-nexus-user")) {
-          } else {
-            setcreator(await JSON.parse(localStorage.getItem("chat-nexus-user")));
-          }
+            if (!localStorage.getItem("chat-nexus-user")) {
+            } else {
+                setcreator(await JSON.parse(localStorage.getItem("chat-nexus-user")));
+            }
         }
         setuserfunc();
-      }, []);
+    }, []);
 
 
-      const handleSignOut = (e) => {
+    const handleSignOut = (e) => {
         e.preventDefault();
         localStorage.removeItem("chat-nexus-user");
         setcreator(null);
         window.location.href = "/";
-      }
-      
+    }
+
 
     return (
         <div
@@ -66,8 +66,7 @@ const Navbar = () => {
         >
             <div className='max-w-[1240px] m-auto flex justify-between items-center p-2 text-white'>
                 <Link rel="preload" href='/'>
-                    {/* <Image quality="90" priority className='cursor-pointer' src='/regalia-logo.png' width="97" height="87" alt="navbarLogo" /> */}
-                    logo
+                    <Image quality="90" priority className='cursor-pointer' src='/logo.png' width="200" height="150" alt="navbarLogo" />
                 </Link>
                 <ul style={{ color: `${textColor}` }} className='hidden sm:flex'>
                     <li className='p-4 text-lg'>
@@ -95,90 +94,116 @@ const Navbar = () => {
                         showSearchModal && <Modal showSearchModal={showSearchModal} setShowSearchModal={setShowSearchModal} />
                     }
                     {
-                        creator ?
-                            <Menu as="div" className="relative inline-block text-left">
-                                <div>
-                                    <Menu.Button className="rounded-full p-2">
-                                        <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
-                                            <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
-                                        </svg>
-                                    </Menu.Button>
-                                </div>
-
-                                <Transition
-                                    as={Fragment}
-                                    enter="transition ease-out duration-100"
-                                    enterFrom="transform opacity-0 scale-95"
-                                    enterTo="transform opacity-100 scale-100"
-                                    leave="transition ease-in duration-75"
-                                    leaveFrom="transform opacity-100 scale-100"
-                                    leaveTo="transform opacity-0 scale-95"
-                                >
-                                    <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
-                                        <div className="py-1">
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <a
-                                                        href="#"
-                                                        className={classNames(
-                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                            'block px-4 py-2 text-sm'
-                                                        )}
-                                                    >
-                                                        Account settings
-                                                    </a>
-                                                )}
-                                            </Menu.Item>
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <a
-                                                        href="#"
-                                                        className={classNames(
-                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                            'block px-4 py-2 text-sm'
-                                                        )}
-                                                    >
-                                                        Support
-                                                    </a>
-                                                )}
-                                            </Menu.Item>
-                                            <Menu.Item>
-                                                {({ active }) => (
-                                                    <a
-                                                        href="#"
-                                                        className={classNames(
-                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                            'block px-4 py-2 text-sm'
-                                                        )}
-                                                    >
-                                                        License
-                                                    </a>
-                                                )}
-                                            </Menu.Item>
-                                            <form method="POST" action="#">
-                                                <Menu.Item>
-                                                    {({ active }) => (
-                                                        <button
-                                                            type="submit"
-                                                            onClick={handleSignOut}
-                                                            className={classNames(
-                                                                active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
-                                                                'block w-full px-4 py-2 text-left text-sm'
-                                                            )}
-                                                        >
-                                                            Sign out
-                                                        </button>
-                                                    )}
-                                                </Menu.Item>
-                                            </form>
-                                        </div>
-                                    </Menu.Items>
-                                </Transition>
-                            </Menu>
-                            :
+                        !user && !creator &&
+                        <>
                             <Link href="/login">
                                 <button className='px-6 py-2 border border-sky-500 rounded-md text-sky-500 hover:bg-sky-500 hover:text-white'>Sign In</button>
                             </Link>
+                            <Link href="/login-creator">
+                                <button className='px-6 py-2 border border-sky-500 rounded-md text-sky-500 hover:bg-sky-500 hover:text-white'>Creator Sign In</button>
+                            </Link>
+                        </>
+                    }
+                    {user &&
+                        <Menu as="div" className="relative inline-block text-left">
+                            <div>
+                                <Menu.Button className="rounded-full p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                                        <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
+                                    </svg>
+                                </Menu.Button>
+                            </div>
+
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div className="py-1">
+                                        <form method="POST" action="#">
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <button
+                                                        type="submit"
+                                                        onClick={handleSignOut}
+                                                        className={classNames(
+                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                            'block w-full px-4 py-2 text-left text-sm'
+                                                        )}
+                                                    >
+                                                        Sign out
+                                                    </button>
+                                                )}
+                                            </Menu.Item>
+                                        </form>
+                                    </div>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
+                    }
+                    {
+                        creator &&
+                        <Menu as="div" className="relative inline-block text-left">
+                            <div>
+
+                                <Menu.Button className="rounded-full p-2">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="currentColor" className="w-8 h-8">
+                                        <path fillRule="evenodd" d="M18.685 19.097A9.723 9.723 0 0021.75 12c0-5.385-4.365-9.75-9.75-9.75S2.25 6.615 2.25 12a9.723 9.723 0 003.065 7.097A9.716 9.716 0 0012 21.75a9.716 9.716 0 006.685-2.653zm-12.54-1.285A7.486 7.486 0 0112 15a7.486 7.486 0 015.855 2.812A8.224 8.224 0 0112 20.25a8.224 8.224 0 01-5.855-2.438zM15.75 9a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0z" clipRule="evenodd" />
+                                    </svg>
+                                </Menu.Button>
+                            </div>
+
+                            <Transition
+                                as={Fragment}
+                                enter="transition ease-out duration-100"
+                                enterFrom="transform opacity-0 scale-95"
+                                enterTo="transform opacity-100 scale-100"
+                                leave="transition ease-in duration-75"
+                                leaveFrom="transform opacity-100 scale-100"
+                                leaveTo="transform opacity-0 scale-95"
+                            >
+                                <Menu.Items className="absolute right-0 z-10 mt-2 w-56 origin-top-right rounded-md bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                    <div className="py-1">
+                                        <Link href="/creator">
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <a
+                                                        href="#"
+                                                        className={classNames(
+                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                            'block px-4 py-2 text-sm'
+                                                        )}
+                                                    >
+                                                        Creator Dashboard
+                                                    </a>
+                                                )}
+                                            </Menu.Item>
+                                        </Link>
+                                        <form method="POST" action="#">
+                                            <Menu.Item>
+                                                {({ active }) => (
+                                                    <button
+                                                        type="submit"
+                                                        onClick={creatorlogout}
+                                                        className={classNames(
+                                                            active ? 'bg-gray-100 text-gray-900' : 'text-gray-700',
+                                                            'block w-full px-4 py-2 text-left text-sm'
+                                                        )}
+                                                    >
+                                                        Sign out
+                                                    </button>
+                                                )}
+                                            </Menu.Item>
+                                        </form>
+                                    </div>
+                                </Menu.Items>
+                            </Transition>
+                        </Menu>
                     }
                 </div>
 
