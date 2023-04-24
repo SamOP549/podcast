@@ -12,7 +12,11 @@ function PodcastForm() {
   const [description, setDescription] = useState('');
   const [category, setCategory] = useState('');
   const [type, setType] = useState('');
-  const [episodes, setEpisodes] = useState([{ title: '', url: '' }]);
+  const [episode1, setepisode1] = useState("")
+  const [episode2, setepisode2] = useState("")
+  const [episode3, setepisode3] = useState("")
+  const [episode4, setepisode4] = useState("")
+  const [episode5, setepisode5] = useState("")
   const [creator, setCreator] = useState('');
 
   useEffect(() => {
@@ -26,28 +30,13 @@ function PodcastForm() {
     setuserfunc();
   }, []);
 
-  const handleAddEpisode = (e) => {
-    e.preventDefault();
-    setEpisodes([...episodes, { title: '', url: '' }]);
-  };
 
-  const handleEpisodeTitleChange = (index, value) => {
-    const updatedEpisodes = [...episodes];
-    updatedEpisodes[index].title = value;
-    setEpisodes(updatedEpisodes);
-  };
-
-  const handleEpisodeUrlChange = (index, value) => {
-    const updatedEpisodes = [...episodes];
-    updatedEpisodes[index].url = value;
-    setEpisodes(updatedEpisodes);
-  };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!title || !description || !category || !type || episodes.some((episode) => !episode.title || !episode.url)) {
-      return toast.error('Please fill all the required fields for each episode.');
+    if (!title || !description || !category || !type ) {
+      return toast.error('Please fill all the required fields.');
     }
 
     if (!validTypes.includes(type)) {
@@ -60,7 +49,11 @@ function PodcastForm() {
         description,
         category,
         type,
-        episodes,
+        episode1,
+        episode2,
+        episode3,
+        episode4,
+        episode5,
         creator
       });
 
@@ -119,39 +112,37 @@ function PodcastForm() {
   </select>
 </label>
 
-<div className="mb-4">
-                <h4 className="text-white font-medium mb-2">Episodes:</h4>
-                {episodes.map((episode, index) => (
-                  <div key={index} className="mb-4">
-                    <div className="flex items-center justify-between mb-2">
-                      <h5 className="text-white font-medium">Episode {index + 1}</h5>
-                      {index === episodes.length - 1 && (
-                        <button onClick={handleAddEpisode} className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-1 px-2 rounded">
-                          Add Episode
-                        </button>
-                      )}
-                    </div>
-                    <label className="block mb-2">
-                      <span className="text-white font-medium">Title:</span>
-                      <input
-                        type="text"
-                        value={episode.title}
-                        onChange={(e) => handleEpisodeTitleChange(index, e.target.value)}
-                        className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      />
-                    </label>
-                    <label className="block mb-2">
-                      <span className="text-white font-medium">URL:</span>
-                      <input
-                        type="text"
-                        value={episode.url}
-                        onChange={(e) => handleEpisodeUrlChange(index, e.target.value)}
-                        className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5"
-                      />
-                    </label>
-                  </div>
-                ))}
+<div className="bg-gray-900 px-4 py-5 sm:p-6">
+              <label className="block mb-4">
+                <span className="text-white font-medium">episode1 url:</span>
+                <input type="text" value={episode1} onChange={(e) =>setepisode1(e.target.value)} className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              </label>
               </div>
+              <div className="bg-gray-900 px-4 py-5 sm:p-6">
+              <label className="block mb-4">
+                <span className="text-white font-medium">episode2url:</span>
+                <input type="text" value={episode2} onChange={(e) =>setepisode2(e.target.value)} className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              </label>
+              </div>
+              <div className="bg-gray-900 px-4 py-5 sm:p-6">
+              <label className="block mb-4">
+                <span className="text-white font-medium">episode3 url:</span>
+                <input type="text" value={episode3} onChange={(e) =>setepisode3(e.target.value)} className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              </label>
+              </div>
+              <div className="bg-gray-900 px-4 py-5 sm:p-6">
+              <label className="block mb-4">
+                <span className="text-white font-medium">episode4 url:</span>
+                <input type="text" value={episode4} onChange={(e) =>setepisode4(e.target.value)} className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              </label>
+              </div>
+              <div className="bg-gray-900 px-4 py-5 sm:p-6">
+              <label className="block mb-4">
+                <span className="text-white font-medium">episode5 url:</span>
+                <input type="text" value={episode5} onChange={(e) =>setepisode5(e.target.value)} className="form-input h-8 text-white mt-1 block w-full rounded-md bg-gray-800 border-gray-700 focus:border-blue-500 focus:outline-none focus:shadow-outline-blue transition duration-150 ease-in-out sm:text-sm sm:leading-5" />
+              </label>
+              </div>
+
 
               <div className="mt-8">
                 <button type="submit" className="bg-blue-500 hover:bg-blue-700 text-white font-medium py-2 px-4 rounded mr-2">

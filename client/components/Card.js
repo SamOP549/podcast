@@ -1,7 +1,9 @@
 import React from 'react'
 import Link from 'next/link'
 
-const Card = ({ image, title }) => {
+
+
+const Card = ({ image, title,speaker }) => {
     return (
         <Link href='/podcast/the-late-show'>
             <div className='flex group flex-col shadow-xl pop'>
@@ -14,8 +16,8 @@ const Card = ({ image, title }) => {
                     </button>
                 </div>
                 <div className='py-6'>
-                    <p className='text-sm font-bold'>The 99% Podcast</p>
-                    <p className='text-sm mt-2 font-thin'>Artist</p>
+                    <p className='text-sm font-bold'>{title}</p>
+                    <p className='text-sm mt-2 font-thin'>{speaker}</p>
                 </div>
             </div>
         </Link>

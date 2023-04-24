@@ -4,11 +4,12 @@ import Card from "@/components/Card"
 import CategoryCard from "@/components/CategoryCard"
 import ArtistCard from "@/components/ArtistCard"
 import Link from "next/link"
-import { allspeakerroute } from './api/apiroutes';
+import { allspeakerroute,getallpodcasts } from './api/apiroutes';
 import axios from "axios"
 
 export default function Home() {
   const [speakers, setSpeakers] = useState([])
+  const [Podcasts, setPodcasts] = useState([])
 
   useEffect(() => {
     async function fetchData() {
@@ -22,6 +23,19 @@ export default function Home() {
     fetchData();
   }, []);
 
+  useEffect(() => {
+    async function fetchData() {
+      try {
+        const response = await axios.get(getallpodcasts);
+        setPodcasts(response.data);
+      } catch (error) {
+        console.error(error);
+      }
+    }
+    fetchData();
+  }, []);
+
+ 
 
 
   return (
@@ -38,10 +52,13 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mt-8">
-          <Card image="./podcast.jpg" title="migration" />
-          <Card image="./podcast.jpg" title="migration" />
-          <Card image="./podcast.jpg" title="migration" />
-          <Card image="./podcast.jpg" title="migration" />
+        {Podcasts.length > 0 ? (
+    Podcasts.map((podcast) => (
+      <Card key={podcast._id} image="./podcast.jpg" speaker={podcast.creator.name} title={podcast.title} />
+    ))
+  ) : (
+    <p>Loading podcasts...</p>
+  )}
         </div>
       </div>
       <div className="md:py-20 lg:px-20 py-12 md:px-12 px-8 h-fit">
@@ -52,10 +69,13 @@ export default function Home() {
           </Link>
         </div>
         <div className="grid lg:grid-cols-4 md:grid-cols-3 grid-cols-1 gap-6 mt-8">
-          <Card image="./podcast.jpg" title="migration" />
-          <Card image="./podcast.jpg" title="migration" />
-          <Card image="./podcast.jpg" title="migration" />
-          <Card image="./podcast.jpg" title="migration" />
+        {Podcasts.length > 0 ? (
+    Podcasts.map((podcast) => (
+      <Card key={podcast._id} image="./featured.jpg" speaker={podcast.creator.name} title={podcast.title} />
+    ))
+  ) : (
+    <p>Loading podcasts...</p>
+  )}
         </div>
       </div>
       <div className="bg-[#121413] md:py-20 lg:px-20 py-12 md:px-12 px-8 h-fit">
