@@ -54,7 +54,7 @@ const Signup = () => {
           if (data.status === true) {
             localStorage.setItem('chat-nexus-user', JSON.stringify(data.user));
             toast.success('User registered successfully!');
-            window.location.href = '/';
+            window.location.href = '/creator/dashboard';
           }
         } catch (error) {  
           toast.error('An error occurred. Please try again later.');
