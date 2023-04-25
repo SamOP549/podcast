@@ -1,8 +1,10 @@
 const Podcast = require('../models/podcastmodel');
+const mongoose = require('mongoose');
+const Speaker=require("../models/speakermodel")
 
 module.exports.createpodcast = async (req, res, next) => {
   try {
-    const { title, description, category, type,  creator, episodes } = req.body;
+    const { title, description, category, type,  creator,episode1,episode2,episode3,episode4,episode5 } = req.body;
 
     if (!title || !description || !category || !type || !creator) {
       return res.status(400).json({ error: 'Please fill all the required fields.' });
@@ -13,12 +15,14 @@ module.exports.createpodcast = async (req, res, next) => {
       description,
       category,
       type,
-      creator
+      creator,
+      episode1,
+      episode2,
+      episode3,
+      episode4,
+      episode5
     });
 
-    if (episodes && episodes.length > 0) {
-      podcast.episodes = episodes;
-    }
 
     await podcast.save();
 
@@ -30,10 +34,10 @@ module.exports.createpodcast = async (req, res, next) => {
 
   module.exports.getallpodcasts = async (req, res, next) => {
     try {
-      const podcasts = await Podcast.find()
-      return res.json(podcasts);
+      const podcasts = await Podcast.find() 
+      return res.json(podcasts); 
     } catch (err) {
       next(err);
-    }
+    }  
   };
   

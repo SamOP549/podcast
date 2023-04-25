@@ -20,7 +20,7 @@ app.use(express.json());
  
 app.use("/api/userauth",Userroutes)      
 app.use("/api/speakerauth",Speakerroutes) 
-app.use("/api/podcasts",Podcastroutes)    
+app.use("/api/podcasts",Podcastroutes)      
 
     
   
@@ -32,19 +32,19 @@ app.use("/api/podcasts",Podcastroutes)
 
 const PORT=process.env.PORT || 5000
 
-const dburl='mongodb://0.0.0.0:27017/podcastify'
-/*const dburl='mongodb+srv://PRADEEP123:'+encodeURIComponent('lawdalele')+'@cluster0.x5jbf4w.mongodb.net/chat?retryWrites=true&w=majority'*/
+/*const dburl='mongodb://0.0.0.0:27017/podcastify'*/
+const dburl='mongodb+srv://PRADEEP123:'+encodeURIComponent('Knight@9026')+'@cluster0.x5jbf4w.mongodb.net/podcastify?retryWrites=true&w=majority'
 /*const dburl=process.env.db_url*/
 
  
 
-mongoose.connect(dburl, {     
+mongoose.connect(dburl, {      
     useNewUrlParser: true,
-    useUnifiedTopology: true          
+    useUnifiedTopology: true           
   });
   
   mongoose.connection.on('connected', () => {    
-    console.log('Successfully connected to MongoDB');  
+    console.log('Successfully connected to MongoDB');   
   }); 
 
  
@@ -55,7 +55,7 @@ mongoose.connect(dburl, {
  
 
 const server=app.listen(PORT,()=>{
-    console.log(`server started at port ${PORT}`)
+    console.log(`server started at port ${PORT}`) 
 })  
 
     

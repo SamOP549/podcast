@@ -1,23 +1,6 @@
 const mongoose = require('mongoose');
 
-const episodeSchema = new mongoose.Schema({
-  title: {
-    type: String,
-    required: true
-  },
-  description: {
-    type: String,
-    required: true
-  },
-  episodeNumber: {
-    type: Number,
-    required: true
-  },
-  playableUrl: {
-    type: String,
-    required: true
-  }
-});
+
 
 const podcastSchema = new mongoose.Schema({
   title: {
@@ -36,13 +19,27 @@ const podcastSchema = new mongoose.Schema({
     type: String,
     enum: ['Audio', 'Video'],
     required: true
-  },
+  }, 
   creator: {
     type: mongoose.Schema.Types.ObjectId,
-    ref: 'User',
+    ref: 'Speaker',
     required: true
   },
-  episodes: [{ type: mongoose.Schema.Types.ObjectId, ref: 'Episode' }],
+  episode1:{
+    type: String,
+  },
+  episode2:{
+    type: String,
+  },
+  episode3:{
+    type: String,
+  },
+  episode4:{
+    type: String,
+  },
+  episode5:{
+    type: String,
+  },
   ratings: [{
     rating: {
       type: Number,
@@ -59,9 +56,8 @@ const podcastSchema = new mongoose.Schema({
   }]
 });
 
-const Episode = mongoose.model('Episode', episodeSchema);
 
-module.exports = { Podcast: mongoose.model('Podcast', podcastSchema), Episode };
+module.exports = mongoose.model('Podcast', podcastSchema)
 
 
 
